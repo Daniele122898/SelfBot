@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Discord.Commands;
+using SelfBot.Services;
 
 namespace SelfBot.Modules
 {
@@ -8,7 +10,14 @@ namespace SelfBot.Modules
         [Command("ping")]
         public async Task Ping()
         {
-            await Context.Channel.SendMessageAsync($"Pong: {Context.Client.Latency} :ping_pong:");
+            if (!Utility.StealthMode)
+            {
+                await Context.Channel.SendMessageAsync($"Pong: {Context.Client.Latency} :ping_pong:");
+            }
+            else
+            {
+                Console.WriteLine($"Pong: {Context.Client.Latency} :ping_pong:");
+            }
         }
     }
 }

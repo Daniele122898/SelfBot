@@ -31,9 +31,16 @@ namespace SelfBot.Services
                 }
                 if (hasAttachment.Count == 0)
                 {
-                    await context.Channel.SendMessageAsync("", embed: 
-                        Utility.ResultFeedback(Utility.RedFailiureEmbed, Utility.SuccessLevelEmoji[1], $"No attachments found within {amount} messages"));
-                    Console.WriteLine($"No attachments found within {amount} messages");
+                    if (!Utility.StealthMode)
+                    {
+                        await context.Channel.SendMessageAsync("", embed:
+                            Utility.ResultFeedback(Utility.RedFailiureEmbed, Utility.SuccessLevelEmoji[1],
+                                $"No attachments found within {amount} messages"));
+                    }
+                    else
+                    {
+                        Console.WriteLine($"No attachments found within {amount} messages");
+                    }
                     return;
                 }
                 //Create Folder
@@ -61,9 +68,16 @@ namespace SelfBot.Services
                     }
 
                 }
-                await context.Channel.SendMessageAsync("", embed: 
-                    Utility.ResultFeedback(Utility.GreenSuccessEmbed, Utility.SuccessLevelEmoji[0], $"Downloaded {count} files to \"images/{folderName}\""));
-                Console.WriteLine($"Downloaded {count} files to \"images/{folderName}\"");
+                if (!Utility.StealthMode)
+                {
+                    await context.Channel.SendMessageAsync("", embed:
+                        Utility.ResultFeedback(Utility.GreenSuccessEmbed, Utility.SuccessLevelEmoji[0],
+                            $"Downloaded {count} files to \"images/{folderName}\""));
+                }
+                else
+                {
+                    Console.WriteLine($"Downloaded {count} files to \"images/{folderName}\"");
+                }
             }
             catch (Exception e)
             {

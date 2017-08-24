@@ -7,6 +7,7 @@ namespace SelfBot.Services
         
         public static Discord.Color GreenSuccessEmbed = new Discord.Color(119,178,85);
         public static Discord.Color RedFailiureEmbed = new Discord.Color(221,46,68);
+        public static bool StealthMode;
 
         public static string[] SuccessLevelEmoji = new string[]
         {

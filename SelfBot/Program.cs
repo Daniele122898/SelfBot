@@ -5,6 +5,7 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
+using Discord.Rest;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using SelfBot.Services;
@@ -71,6 +72,8 @@ namespace SelfBot
             
             if(trigger)
                 CreateConfig();
+
+            Utility.StealthMode = GetStealth();
             
             await _client.LoginAsync(TokenType.User,token);
             await _client.StartAsync();
@@ -85,6 +88,21 @@ namespace SelfBot
                 File.Delete("config.json");
             }
             ConfigService.SaveConfig(_data);
+        }
+
+        private bool GetStealth()
+        {
+            Console.WriteLine("Start in Stealth mode (All messages get redirected to the Console!) y/n, leave blank for no: ");
+            char input = Console.ReadLine().ToLower()[0];
+            switch (input)
+            {
+                case'y':
+                    return true;
+                case'n':
+                    return false;
+                default:
+                    return false;
+            }
         }
 
         private string GetPrefix()
