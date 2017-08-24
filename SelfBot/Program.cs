@@ -99,6 +99,7 @@ namespace SelfBot
                 .AddSingleton(_client)
                 .AddSingleton<CommandService>()
                 .AddSingleton<CommandHandler>()
+                .AddSingleton<MediaDownloaderService>()
                 .BuildServiceProvider();
         }
 

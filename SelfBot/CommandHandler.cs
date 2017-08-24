@@ -36,10 +36,14 @@ namespace SelfBot
             if (message.Source != MessageSource.User) return;
             
             int argPos = Utility.Prefix.Length-1;
-            if (message.HasStringPrefix(Utility.Prefix, ref argPos)) return;
+            if (!message.HasStringPrefix(Utility.Prefix, ref argPos)) return;
             
             var context = new SocketCommandContext(_client, message);
             var result = await _commands.ExecuteAsync(context, argPos, _provider);
+            if (!result.IsSuccess)
+            {
+                await (await context.Client.CurrentUser.GetOrCreateDMChannelAsync()).SendMessageAsync($"**FAILED** \n{result.ErrorReason}");
+            }
         }
     }
 }

@@ -5,7 +5,6 @@ namespace SelfBot.Modules
 {
     public class Misc : ModuleBase<SocketCommandContext>
     {
-        
         [Command("ping")]
         public async Task Ping()
         {
